@@ -9,18 +9,18 @@ import org.testov.pages.HomePage;
 import org.testov.pages.LoginPage;
 import org.testov.pages.SearchPage;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 public class SignInTest {
-    public static WebDriver driver;
-    public static HomePage homePage;
-    public static LoginPage loginPage;
-    public static SearchPage searchPage;
+    private WebDriver driver;
+    private HomePage homePage;
+    private LoginPage loginPage;
+    private SearchPage searchPage;
 
     @BeforeClass
-    public static void setup(){
-        System.setProperty("webdriver.chrome.driver", "driver/chromedriver.exe");;
+    public void setup() {
+        System.setProperty("webdriver.chrome.driver", "driver/chromedriver.exe");
+        ;
         driver = new ChromeDriver();
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
