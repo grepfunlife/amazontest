@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testov.pages.HomePage;
+import org.testov.pages.ItemPage;
 import org.testov.pages.LoginPage;
 import org.testov.pages.SearchPage;
 
@@ -16,6 +17,7 @@ public class Iphone7Test {
     private HomePage homePage;
     private LoginPage loginPage;
     private SearchPage searchPage;
+    private ItemPage itemPage;
 
     @BeforeClass
     public void setup() {
@@ -25,13 +27,14 @@ public class Iphone7Test {
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
         searchPage = new SearchPage(driver);
+        itemPage = new ItemPage(driver);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://www.amazon.co.uk/");
     }
 
     @Test
-    public void iphone7Search() {
+    public void iphone7Search() throws InterruptedException {
         homePage.clickSignInLink();
         loginPage.fillEmailField("devochka.ch@gmail.com");
         loginPage.fillPasswordField("123456qW");
@@ -45,5 +48,9 @@ public class Iphone7Test {
         Assert.assertEquals(resultNotSort, "\"iphone 7 128gb\"");
         searchPage.clickSortByPrice();
         searchPage.clickLowPriceItem();
+        itemPage.clickAddToCartButton();
+        String addToBasket = itemPage.getAddToCartText();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        Assert.assertEquals(addToBasket, "Added to Basket");
     }
 }

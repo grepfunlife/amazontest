@@ -11,6 +11,7 @@ public class SearchPage {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
+
     public WebDriver driver;
 
     @FindBy(xpath = "//div[@ data-a-input-name='s-ref-checkbox-14210458031']")
@@ -22,8 +23,11 @@ public class SearchPage {
     @FindBy(xpath = "//select[@class='a-spacing-top-mini']/option[@value='price-asc-rank']")
     private WebElement sortByPrice;
 
-    @FindBy(xpath = "//li[@id='result_0']/div/div/div/div/div/div[@class='a-row a-spacing-top-mini']")
-    private WebElement lowPriceItem;
+    @FindBy(xpath = "//li[@id='result_0']")
+    private WebElement lowPriceItem1;
+
+    @FindBy(xpath = "//li[@id='result_0']/div/div/div/div/div/div[@class='a-row a-spacing-none']")
+    private WebElement lowPriceItem2;
 
     public void clickCheckBox128Gb() {
         checkBox128Gb.click();
@@ -39,6 +43,10 @@ public class SearchPage {
     }
 
     public void clickLowPriceItem() {
-        lowPriceItem.click();
+        try {
+            lowPriceItem2.click();
+        } catch (Exception e) {
+            lowPriceItem1.click();
+        }
     }
 }
