@@ -3,6 +3,7 @@ package org.testov.tests;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testov.pages.HomePage;
@@ -22,7 +23,6 @@ public class Iphone7Test {
     @BeforeClass
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "driver/chromedriver.exe");
-        ;
         driver = new ChromeDriver();
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
@@ -33,24 +33,35 @@ public class Iphone7Test {
         driver.get("https://www.amazon.co.uk/");
     }
 
+    @AfterTest
+    public void closDriver() {
+//        driver.close();
+    }
+
     @Test
-    public void iphone7Search() throws InterruptedException {
+    public void iphone7Search() {
+        //логинимся на главной странице
         homePage.clickSignInLink();
-        loginPage.fillEmailField("devochka.ch@gmail.com");
-        loginPage.fillPasswordField("123456qW");
-        loginPage.clickSignButton();
-        String text = homePage.getHello();
-        Assert.assertEquals(text, "Hello, Love");
-        homePage.fillSearchField("iphone 7 128gb");
-        homePage.clickSearchButton();
+        loginPage.fillEmailField("devochka.ch@gmail.com")
+                .fillPasswordField("123456qW")
+                .clickSignButton();
+
+        //Проверяем, что удалось залогиниться
+        Assert.assertEquals(homePage.getHello(), "Hello, Love");
+
+        //Ищем iphone 7 128gb
+        homePage.fillSearchField("iphone 7 128gb")
+                .clickSearchButton();
+
+        //Уочняем поиск и проверяем, что нашлось то, что нужно
         searchPage.clickCheckBox128Gb();
-        String resultNotSort = searchPage.getFirstResult();
-        Assert.assertEquals(resultNotSort, "\"iphone 7 128gb\"");
+        Assert.assertEquals(searchPage.getFirstResult(), "\"iphone 7 128gb\"");
+
+        //Находим самое дегевое предложение (здесь можно было бы проверить, что оно действительно самое дешевое, если знать, что у нас БД)
         searchPage.clickSortByPrice();
-        searchPage.clickLowPriceItem();
-        itemPage.clickAddToCartButton();
-        String addToBasket = itemPage.getAddToCartText();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        Assert.assertEquals(addToBasket, "Added to Basket");
+        searchPage.clickLowPriceItem();
+
+        itemPage.clickAddToCartButton();
     }
 }

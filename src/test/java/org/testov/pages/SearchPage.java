@@ -38,8 +38,9 @@ public class SearchPage {
         return amazonsChoice;
     }
 
-    public void clickSortByPrice() {
+    public SearchPage clickSortByPrice() {
         sortByPrice.click();
+        return this;
     }
 
     public void clickLowPriceItem() {

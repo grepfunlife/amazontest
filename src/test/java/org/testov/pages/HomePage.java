@@ -35,11 +35,13 @@ public class HomePage {
         return hello;
     }
 
-    public void fillSearchField(String order) {
+    public HomePage fillSearchField(String order) {
         searchField.sendKeys(order);
+        return this;
     }
 
-    public void clickSearchButton() {
+    public HomePage clickSearchButton() {
         searchButton.click();
+        return this;
     }
 }
