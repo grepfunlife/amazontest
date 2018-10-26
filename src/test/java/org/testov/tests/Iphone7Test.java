@@ -11,7 +11,7 @@ import org.testov.pages.SearchPage;
 
 import java.util.concurrent.TimeUnit;
 
-public class SignInTest {
+public class Iphone7Test {
     private WebDriver driver;
     private HomePage homePage;
     private LoginPage loginPage;
@@ -31,7 +31,7 @@ public class SignInTest {
     }
 
     @Test
-    public void signIn() {
+    public void iphone7Search() {
         homePage.clickSignInLink();
         loginPage.fillEmailField("devochka.ch@gmail.com");
         loginPage.fillPasswordField("123456qW");
