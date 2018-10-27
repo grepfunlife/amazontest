@@ -29,9 +29,16 @@ public class HomePage {
     @FindBy(xpath = "//*[@id=\"nav-cart\"]/span[2]")
     private WebElement basket;
 
+    @FindBy(xpath = "//*[@id=\"nav-item-signout\"]/span")
+    private WebElement signOut;
+
     public HomePage open() {
         driver.get("https://www.amazon.co.uk/");
         return this;
+    }
+
+    public WebElement getSingIn() {
+        return signIn;
     }
 
     public void clickSignInLink() {
@@ -55,6 +62,11 @@ public class HomePage {
 
     public HomePage clickBasket() {
         basket.click();
+        return this;
+    }
+
+    public HomePage clickSignOut() {
+        signOut.click();
         return this;
     }
 }
