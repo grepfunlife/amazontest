@@ -1,13 +1,14 @@
 package org.testov.tests;
 
+import content.steps.CommonSteps;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testov.pages.*;
+import content.pages.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,18 +19,24 @@ public class Iphone7Test {
     private SearchPage searchPage;
     private ItemPage itemPage;
     private BasketPage basketPage;
-    private Actions actions;
+//    private Actions actions;
+
+
+    @Autowired
+    private CommonSteps commonSteps;
+
 
     @BeforeClass
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "driver/chromedriver.exe");
         driver = new ChromeDriver();
-        homePage = new HomePage(driver);
+        homePage = new HomePage();
         loginPage = new LoginPage(driver);
         searchPage = new SearchPage(driver);
         itemPage = new ItemPage(driver);
         basketPage = new BasketPage(driver);
-        actions = new Actions(driver);
+//        actions = new Actions(driver);
+        commonSteps = new CommonSteps();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
@@ -39,14 +46,17 @@ public class Iphone7Test {
         driver.close();
     }
 
+
     @Test
     public void iphone7Search() {
         //логинимся на главной странице
-        homePage.open()
+        homePage.open(driver)
                 .clickSignInLink();
         loginPage.fillEmailField("lovetest111@yandex.ru")
                 .fillPasswordField("123456qW")
                 .clickSignButton();
+
+//        commonSteps.login("lovetest111@yandex.ru", "123456qW");
 
         //Проверяем, что удалось залогиниться
         Assert.assertEquals(homePage.getHello(), "Hello, Love");
@@ -69,12 +79,12 @@ public class Iphone7Test {
         Assert.assertTrue(itemPage.getAddToCartText().contains("Added to Basket"));
 
         //переходим на главную, открываем корзину, проверям наличие товара в ней и удаляем товар
-        homePage.open()
+        homePage.open(driver)
                 .clickBasket();
         Assert.assertTrue(basketPage.checkItem().contains("iPhone 7"));
         basketPage.clickDelete();
 
-        actions.moveToElement(homePage.getSingIn()).build().perform();
+        commonSteps.moveToElement(homePage.getSingIn());
         homePage.clickSignOut();
     }
 }

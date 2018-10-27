@@ -1,4 +1,4 @@
-package org.testov.pages;
+package content.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -6,13 +6,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class HomePage {
-
-    public HomePage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
-    }
-
-    public WebDriver driver;
+//
+//    public HomePage(WebDriver driver) {
+//        PageFactory.initElements(driver, this);
+//        this.driver = driver;
+//    }
+//
+//    public WebDriver driver;
 
     @FindBy(id = "nav-link-yourAccount")
     private WebElement signIn;
@@ -32,7 +32,7 @@ public class HomePage {
     @FindBy(xpath = "//*[@id=\"nav-item-signout\"]/span")
     private WebElement signOut;
 
-    public HomePage open() {
+    public HomePage open(WebDriver driver) {
         driver.get("https://www.amazon.co.uk/");
         return this;
     }
