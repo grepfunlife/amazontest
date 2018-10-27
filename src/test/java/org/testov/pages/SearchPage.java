@@ -23,11 +23,11 @@ public class SearchPage {
     @FindBy(xpath = "//select[@class='a-spacing-top-mini']/option[@value='price-asc-rank']")
     private WebElement sortByPrice;
 
-    @FindBy(xpath = "//li[@id='result_0']")
+    @FindBy(xpath = "//*[@id=\"result_0\"]/div/div[2]/div/div/a")
     private WebElement  lowPriceItem1;
 
-    @FindBy(xpath = "//*[@id=\"result_0\"]/div/div[2]/div/div[2]/div[1]/div[1]/a/h2")
-    ////li[@id='result_0']/div/div/div/div/div/div[@class='a-row a-spacing-small']
+    @FindBy(xpath = "//*[@id=\"result_0\"]/div/div/div/div[2]/div[1]/div[1]/a")
+    //
     private WebElement lowPriceItem2;
 
     public void clickCheckBox128Gb() {

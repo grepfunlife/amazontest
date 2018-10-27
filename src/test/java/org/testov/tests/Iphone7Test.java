@@ -35,7 +35,7 @@ public class Iphone7Test {
     }
 
     @AfterTest
-    public void closDriver() {
+    public void closeDriver() {
         driver.close();
     }
 
@@ -61,7 +61,7 @@ public class Iphone7Test {
 
         //Находим самое дешевое предложение (здесь можно было бы проверить, что оно действительно самое дешевое, если знать, что у нас БД)
         searchPage.clickSortByPrice();
-        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         searchPage.clickLowPriceItem();
 
         //добавляем товар в корзину и проверяем, что он добавился
@@ -75,6 +75,6 @@ public class Iphone7Test {
         basketPage.clickDelete();
 
         actions.moveToElement(homePage.getSingIn()).build().perform();
-        //homePage.clickSignOut();
+        homePage.clickSignOut();
     }
 }
