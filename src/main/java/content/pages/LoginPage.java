@@ -1,4 +1,4 @@
-package org.testov.pages;
+package content.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -36,5 +36,11 @@ public class LoginPage {
     public LoginPage clickSignButton() {
         signButton.click();
         return this;
+    }
+
+    public void logIn(String login, String password) {
+        emailField.sendKeys(login);
+        passwordField.sendKeys(password);
+        signButton.click();
     }
 }

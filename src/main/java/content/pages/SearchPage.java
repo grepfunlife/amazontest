@@ -1,4 +1,4 @@
-package org.testov.pages;
+package content.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,7 +24,7 @@ public class SearchPage {
     private WebElement sortByPrice;
 
     @FindBy(xpath = "//*[@id=\"result_0\"]/div/div[2]/div/div/a")
-    private WebElement  lowPriceItem1;
+    private WebElement lowPriceItem1;
 
     @FindBy(xpath = "//*[@id=\"result_0\"]/div/div/div/div[2]/div[1]/div[1]/a")
     //

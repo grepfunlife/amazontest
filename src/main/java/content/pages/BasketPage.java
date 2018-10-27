@@ -1,4 +1,4 @@
-package org.testov.pages;
+package content.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,6 +20,9 @@ public class BasketPage {
     @FindBy(xpath = "//*[@class='a-link-normal sc-product-link']/span")
     private WebElement item;
 
+    @FindBy(xpath = "//*[@id=\"sc-active-cart\"]/div/h1")
+    private WebElement basketIsEmpty;
+
     public BasketPage clickDelete() {
         delete.click();
         return this;
@@ -27,5 +30,9 @@ public class BasketPage {
 
     public String checkItem() {
         return item.getAttribute("innerHTML");
+    }
+
+    public String checkBasket() {
+        return basketIsEmpty.getAttribute("innerHTML");
     }
 }
