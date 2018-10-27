@@ -6,10 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testov.pages.HomePage;
-import org.testov.pages.ItemPage;
-import org.testov.pages.LoginPage;
-import org.testov.pages.SearchPage;
+import org.testov.pages.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,6 +16,7 @@ public class Iphone7Test {
     private LoginPage loginPage;
     private SearchPage searchPage;
     private ItemPage itemPage;
+    private BasketPage basketPage;
 
     @BeforeClass
     public void setup() {
@@ -28,6 +26,7 @@ public class Iphone7Test {
         loginPage = new LoginPage(driver);
         searchPage = new SearchPage(driver);
         itemPage = new ItemPage(driver);
+        basketPage = new BasketPage(driver);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://www.amazon.co.uk/");
@@ -42,7 +41,7 @@ public class Iphone7Test {
     public void iphone7Search() {
         //логинимся на главной странице
         homePage.clickSignInLink();
-        loginPage.fillEmailField("devochka.ch@gmail.com")
+        loginPage.fillEmailField("lovetest111@yandex.ru")
                 .fillPasswordField("123456qW")
                 .clickSignButton();
 
@@ -57,11 +56,20 @@ public class Iphone7Test {
         searchPage.clickCheckBox128Gb();
         Assert.assertEquals(searchPage.getFirstResult(), "\"iphone 7 128gb\"");
 
-        //Находим самое дегевое предложение (здесь можно было бы проверить, что оно действительно самое дешевое, если знать, что у нас БД)
+        //Находим самое дешевое предложение (здесь можно было бы проверить, что оно действительно самое дешевое, если знать, что у нас БД)
         searchPage.clickSortByPrice();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         searchPage.clickLowPriceItem();
 
+        //добавляем товар в корзину и проверяем, что он добавился
         itemPage.clickAddToCartButton();
+        Assert.assertEquals(itemPage.getAddToCartText(), "Added to Basket");
+
+        //переходим на главную, открываем корзину, проверям наличие товара в ней и удаляем товар
+        homePage.open()
+                .clickBasket();
+        Assert.assertTrue(basketPage.checkItem().contains("iPhone 7"));
+        System.out.print("dddddddddddddddd" + basketPage.checkItem());
+        basketPage.clickDelete();
     }
 }

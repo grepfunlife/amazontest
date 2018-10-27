@@ -17,16 +17,21 @@ public class ItemPage {
     @FindBy(id = "addToCart_feature_div")
     private WebElement addToCartButton;
 
-//    @FindBy(xpath = "//*[@id=\"huc-v2-order-row-confirm-text\"]/h1")
-    @FindBy(xpath = "//*[@id=\"attachDisplayAddBaseAlert\"]/div/h4")
+    @FindBy(xpath = "//*[@id='attachDisplayAddBaseAlert']/div/h4")
     private WebElement addToCartText;
+
+    @FindBy(xpath = "//*[@id='huc-v2-order-row-confirm-text']/h1")
+    private WebElement addToCartText2;
 
     public void clickAddToCartButton() {
         addToCartButton.click();
     }
 
     public String getAddToCartText() {
-        String addToBasket = addToCartText.getText();
-        return addToBasket;
+        try {
+            return addToCartText.getAttribute("innerHTML");
+        } catch (Exception e) {
+            return addToCartText2.getAttribute("innerHTML");
+        }
     }
 }

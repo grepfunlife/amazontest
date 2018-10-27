@@ -24,9 +24,10 @@ public class SearchPage {
     private WebElement sortByPrice;
 
     @FindBy(xpath = "//li[@id='result_0']")
-    private WebElement lowPriceItem1;
+    private WebElement  lowPriceItem1;
 
-    @FindBy(xpath = "//li[@id='result_0']/div/div/div/div/div/div[@class='a-row a-spacing-none']")
+    @FindBy(xpath = "//*[@id=\"result_0\"]/div/div[2]/div/div[2]/div[1]/div[1]/a/h2")
+    ////li[@id='result_0']/div/div/div/div/div/div[@class='a-row a-spacing-small']
     private WebElement lowPriceItem2;
 
     public void clickCheckBox128Gb() {
