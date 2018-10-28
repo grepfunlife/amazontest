@@ -1,0 +1,9 @@
+*.class
+*.orig
+target/
+test-output/
+.idea/
+*.iws
+*.iml
+*.ipr
+*.ids

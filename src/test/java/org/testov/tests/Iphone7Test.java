@@ -4,16 +4,16 @@ import content.pages.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.testng.Assert;
-import org.testng.Reporter;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.Assert.*;
-import static org.testng.Reporter.*;
+import static java.lang.System.setProperty;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+import static org.testng.Reporter.log;
 
 public class Iphone7Test {
     private WebDriver driver;
@@ -26,7 +26,7 @@ public class Iphone7Test {
 
     @BeforeClass
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", "driver/chromedriver.exe");
+        setProperty("webdriver.chrome.driver", "driver/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -55,7 +55,7 @@ public class Iphone7Test {
         loginPage.logIn(login, password);
 
         //Проверяем, что удалось залогиниться
-        assertEquals(homePage.getHello(), "Hello, " + user );
+        assertEquals(homePage.getHello(), "Hello, " + user);
         log("Логин пользователя " + user + " прошел успешно");
 
         //Ищем iphone 7 128gb
@@ -90,7 +90,7 @@ public class Iphone7Test {
         actions.moveToElement(homePage.getSingIn()).build().perform();
         homePage.clickSignOut();
         homePage.open();
-        assertEquals(homePage.getHello(), "Hello. Sign in" );
+        assertEquals(homePage.getHello(), "Hello. Sign in");
         log("Выход из аккаунта прошел успешно");
     }
 }
