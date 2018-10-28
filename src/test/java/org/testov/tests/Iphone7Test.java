@@ -88,8 +88,8 @@ public class Iphone7Test {
 
         //Выходим из аккаунта
         actions.moveToElement(homePage.getSingIn()).build().perform();
-        homePage.clickSignOut();
-        homePage.open();
+        homePage.clickSignOut()
+                .open();
         assertEquals(homePage.getHello(), "Hello. Sign in");
         log("Выход из аккаунта прошел успешно");
     }

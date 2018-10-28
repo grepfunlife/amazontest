@@ -27,7 +27,6 @@ public class SearchPage {
     private WebElement lowPriceItem1;
 
     @FindBy(xpath = "//*[@id=\"result_0\"]/div/div/div/div[2]/div[1]/div[1]/a")
-    //
     private WebElement lowPriceItem2;
 
     public void clickCheckBox128Gb() {
@@ -39,9 +38,8 @@ public class SearchPage {
         return amazonsChoice;
     }
 
-    public SearchPage clickSortByPrice() {
+    public void clickSortByPrice() {
         sortByPrice.click();
-        return this;
     }
 
     public void clickLowPriceItem() {

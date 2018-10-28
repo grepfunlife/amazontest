@@ -23,21 +23,6 @@ public class LoginPage {
     @FindBy(id = "signInSubmit")
     private WebElement signButton;
 
-    public LoginPage fillEmailField(String email) {
-        emailField.sendKeys(email);
-        return this;
-    }
-
-    public LoginPage fillPasswordField(String password) {
-        passwordField.sendKeys(password);
-        return this;
-    }
-
-    public LoginPage clickSignButton() {
-        signButton.click();
-        return this;
-    }
-
     public void logIn(String login, String password) {
         emailField.sendKeys(login);
         passwordField.sendKeys(password);

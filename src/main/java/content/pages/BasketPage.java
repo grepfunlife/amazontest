@@ -23,9 +23,8 @@ public class BasketPage {
     @FindBy(xpath = "//*[@id=\"sc-active-cart\"]/div/h1")
     private WebElement basketIsEmpty;
 
-    public BasketPage clickDelete() {
+    public void clickDelete() {
         delete.click();
-        return this;
     }
 
     public String checkItem() {
