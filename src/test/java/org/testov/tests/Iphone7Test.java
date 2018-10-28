@@ -12,6 +12,9 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.testng.Assert.*;
+import static org.testng.Reporter.*;
+
 public class Iphone7Test {
     private WebDriver driver;
     private HomePage homePage;
@@ -52,17 +55,17 @@ public class Iphone7Test {
         loginPage.logIn(login, password);
 
         //Проверяем, что удалось залогиниться
-        Assert.assertEquals(homePage.getHello(), "Hello, " + user );
-        Reporter.log("Логин пользователя " + user + " прошел успешно");
+        assertEquals(homePage.getHello(), "Hello, " + user );
+        log("Логин пользователя " + user + " прошел успешно");
 
         //Ищем iphone 7 128gb
-        homePage.fillSearchField("iphone 7 128gb")
+        homePage.fillSearchField(item)
                 .clickSearchButton();
 
-        //Уочняем поиск и проверяем, что нашлось то, что нужно
+        //УТочняем поиск и проверяем, что нашлось то, что нужно
         searchPage.clickCheckBox128Gb();
-        Assert.assertTrue(searchPage.getFirstResult().contains(item));
-        Reporter.log("Поиск по " + item + " выполнен успешно");
+        assertTrue(searchPage.getFirstResult().contains(item));
+        log("Поиск по " + item + " выполнен успешно");
 
         //Находим самое дешевое предложение (здесь можно было бы проверить, что оно действительно самое дешевое, если знать, что у нас БД)
         searchPage.clickSortByPrice();
@@ -71,23 +74,23 @@ public class Iphone7Test {
 
         //добавляем товар в корзину и проверяем, что он добавился
         itemPage.clickAddToCartButton();
-        Assert.assertTrue(itemPage.getAddToCartText().contains("Added to Basket"));
-        Reporter.log("Получено сообщение, что " + item + " уcпешно добавлен в корзину");
+        assertTrue(itemPage.getAddToCartText().contains("Added to Basket"));
+        log("Получено сообщение, что " + item + " уcпешно добавлен в корзину");
 
         //переходим на главную, открываем корзину, проверям наличие товара в ней и удаляем товар
         homePage.open()
                 .clickBasket();
-        Assert.assertTrue(basketPage.checkItem().contains("iPhone 7"));
-        Reporter.log(item + " находится в корзине");
+        assertTrue(basketPage.checkItem().contains("iPhone 7"));
+        log(item + " находится в корзине");
         basketPage.clickDelete();
-        Assert.assertTrue(basketPage.checkBasket().contains("Your Shopping Basket is empty"));
-        Reporter.log("Товар удален из корзины");
+        assertTrue(basketPage.checkBasket().contains("Your Shopping Basket is empty"));
+        log("Товар удален из корзины");
 
         //Выходим из аккаунта
         actions.moveToElement(homePage.getSingIn()).build().perform();
         homePage.clickSignOut();
         homePage.open();
-        Assert.assertEquals(homePage.getHello(), "Hello. Sign in" );
-        Reporter.log("Выход из аккаунта прошел успешно");
+        assertEquals(homePage.getHello(), "Hello. Sign in" );
+        log("Выход из аккаунта прошел успешно");
     }
 }
